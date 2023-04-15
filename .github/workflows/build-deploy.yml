@@ -4,6 +4,13 @@ on: [push]
 
 jobs:
   Build-python:
+    environment:
+      name: Testing
+    env:
+      SQLALCHEMY_DATABASE_URL: ${{secrets.SQLALCHEMY_DATABASE_URL}}
+      SQLALCHEMY_DATABASE_TEST_URL: ${{secrets.SQLALCHEMY_DATABASE_TEST_URL}}
+      SECRET_KEY: ${{secrets.SECRET_KEY}}
+      ALGORITHM: ${{secrets.ALGORITHM}}
     runs-on: ubuntu-latest
     steps:
       - name: Pulling git repo
