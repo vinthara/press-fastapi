@@ -1,8 +1,8 @@
 name: Build and Deploy Code
 
 on: 
-  push;
-    branches: [05-github-actions]
+  push:
+    branches: "05-github-actions"
 
 jobs:
   Build-python:
@@ -29,11 +29,12 @@ jobs:
         run: 
           pytest
       - name: Test with pytest
-        run: |
-          pytest
-          if [ $? -ne 0 ]; then
-            exit 1
-          fi
-      - name: Fail testing
-        if: ${{ failure() }}
-        run: exit 1
+        run: pytest
+        
+      - name: Push changes
+        if: ${{ success() }}
+        uses: stefanzweifel/git-auto-commit-action@v4.4.2
+        with:
+          commit_message: "Test successful. Auto-committing changes."
+          commit_options: '--author="GitHub Actions <actions@github.com>"'
+          commit_files: '.'
