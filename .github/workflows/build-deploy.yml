@@ -3,7 +3,7 @@ name: Build and Deploy Code
 on: [push]
 
 jobs:
-  job1:
+  Build-python:
     runs-on: ubuntu-latest
     steps:
       - name: Pulling git repo
@@ -17,6 +17,5 @@ jobs:
       - name: Install all python dependencies
         run : pip3 install -r requirements.txt
       - name: Test with pytest
-        run: |
-          source venv/bin/activate
+        run: 
           pytest
