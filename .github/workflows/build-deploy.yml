@@ -26,3 +26,12 @@ jobs:
       - name: Test with pytest
         run: 
           pytest
+      - name: Test with pytest
+        run: |
+          pytest
+          if [ $? -ne 0 ]; then
+            exit 1
+          fi
+      - name: Fail testing
+        if: ${{ failure() }}
+        run: exit 1
