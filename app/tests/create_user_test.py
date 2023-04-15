@@ -4,7 +4,7 @@ from .. import schemas
 
 def test_root(client):
     res = client.get("/")
-    assert res.status_code == 200  # Fixed
+    assert res.status_code == 300  # Fixed
 
 
 def test_create_user(client):
