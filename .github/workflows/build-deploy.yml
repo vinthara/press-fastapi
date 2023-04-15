@@ -1,6 +1,8 @@
 name: Build and Deploy Code
 
-on: push
+on: 
+  push;
+    branches: [05-github-actions]
 
 jobs:
   Build-python:
