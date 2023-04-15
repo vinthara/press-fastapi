@@ -1,0 +1,16 @@
+[Unit]
+Description=Gunicorn press fastapi
+After=network.target
+
+[Service]
+User=aravinth
+Group=aravinth
+WorkingDirectory=/home/aravinth/press-fastapi/app
+Environment="PATH=/home/aravinth/venv/bin"
+ExecStart=/home/aravinth/press-fastapi/venv/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000
+EnvironmentFile=/home/aravinth/press-fastapi/.env
+
+[Install]
+WantedBy=multi-user.target 
+
+

@@ -5,7 +5,7 @@ from .database import engine
 from . import models, schemas
 from .routers import user, auth
 
-models.Base.metadata.create_all(bind=engine)
+# models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 

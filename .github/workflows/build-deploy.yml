@@ -1,0 +1,28 @@
+name: Build code
+
+on: [push]
+
+jobs:
+  Build-python:
+    environment:
+      name: Testing
+    env:
+      SQLALCHEMY_DATABASE_URL: ${{secrets.SQLALCHEMY_DATABASE_URL}}
+      SQLALCHEMY_DATABASE_TEST_URL: ${{secrets.SQLALCHEMY_DATABASE_TEST_URL}}
+      SECRET_KEY: ${{secrets.SECRET_KEY}}
+      ALGORITHM: ${{secrets.ALGORITHM}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pulling git repo
+        uses: actions/checkout@v3
+      - name: Install python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' 
+      - name: Update pip
+        run: pip3 install -U pip
+      - name: Install all python dependencies
+        run : pip3 install -r requirements.txt
+      - name: Test with pytest
+        run: 
+          pytest
