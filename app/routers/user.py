@@ -14,8 +14,8 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 router = APIRouter(tags=["User"])
 
 
-@router.post("/user", response_model=schemas.UserCreate)
-def create_user(user: schemas.User, db: Session = Depends(get_db)):
+@router.post("/user", response_model=schemas.User)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     new_user = models.User(**user.dict())
 
     email_already_in_database = (
@@ -35,9 +35,7 @@ def create_user(user: schemas.User, db: Session = Depends(get_db)):
 
 
 @router.get("/users", response_model=list[schemas.User])
-def get_all_users(
-    db: Session = Depends(get_db), user_id: int = Depends(get_current_user_id)
-):
+def get_all_users(db: Session = Depends(get_db), user=Depends(get_current_user_id)):
     users = db.query(models.User).all()
 
     return users

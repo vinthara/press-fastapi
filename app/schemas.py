@@ -7,7 +7,6 @@ class User(BaseModel):
     last_name: str
     nickname: str | None
     email: EmailStr
-    password: str
 
     class Config:
         orm_mode = True
@@ -18,6 +17,7 @@ class UserCreate(BaseModel):
     last_name: str
     nickname: str | None
     email: EmailStr
+    password: str
 
     class Config:
         orm_mode = True
