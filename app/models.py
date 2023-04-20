@@ -1,4 +1,5 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import sql
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -13,3 +14,4 @@ class User(Base):
     nickname = Column(String, nullable=True)
     email = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)
+    is_employed = Column(Boolean, nullable=False, default=True)
