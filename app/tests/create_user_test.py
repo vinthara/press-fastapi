@@ -8,7 +8,6 @@ def test_root(client):
 
 
 def test_create_user(client):
-    client
     res = client.post(
         "/user",
         json={
@@ -19,6 +18,12 @@ def test_create_user(client):
         },
     )
 
-    new_user = schemas.UserCreate(**res.json())
+    new_user = schemas.User(**res.json())
     assert new_user.email == "hello123@gmail.com"
     assert res.status_code == 200
+
+
+def test_get_all_users(authorized_client):
+    res = authorized_client.get("/users")
+    all_users = schemas.User(**res.json()[0])
+    assert all_users.email == "aravinthbalakrishnan@gmail.com"

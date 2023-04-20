@@ -8,6 +8,7 @@ from ..main import app
 from ..config import settings
 from ..database import Base, get_db
 from .. import models
+from app.oauth2 import create_access_token
 
 
 SQLALCHEMY_DATABASE_TEST_URL = settings.sqlalchemy_database_test_url
@@ -42,15 +43,31 @@ def client(session):
 
 
 @pytest.fixture
-def test_user(session):
-    user_data = {"email": "aravinthbalakrishnan@gmail.com", "password": "password123"}
+def test_user(client):
+    user_data = {
+        "first_name": "Aravinth",
+        "last_name": "Balakrishnan",
+        "email": "aravinthbalakrishnan@gmail.com",
+        "password": "password123",
+    }
     res = client.post("/user", json=user_data)
 
-    assert res.status_code == 201
+    assert res.status_code == 200
 
     new_user = res.json()
     new_user["password"] = user_data["password"]
     return new_user
+
+
+@pytest.fixture
+def token(test_user):
+    return create_access_token({"user_id": test_user["id"]})
+
+
+@pytest.fixture
+def authorized_client(client, token):
+    client.headers = {**client.headers, "Authorization": f"Bearer {token}"}
+    return client
 
 
 # def test_root(client):
