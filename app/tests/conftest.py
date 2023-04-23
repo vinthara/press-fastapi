@@ -43,25 +43,25 @@ def client(session):
 
 
 @pytest.fixture
-def test_user(client):
-    user_data = {
+def test_employee(client):
+    employee_data = {
         "first_name": "Aravinth",
         "last_name": "Balakrishnan",
         "email": "aravinthbalakrishnan@gmail.com",
         "password": "password123",
     }
-    res = client.post("/user", json=user_data)
+    res = client.post("/employee", json=employee_data)
 
     assert res.status_code == 200
 
-    new_user = res.json()
-    new_user["password"] = user_data["password"]
-    return new_user
+    new_employee = res.json()
+    new_employee["password"] = employee_data["password"]
+    return new_employee
 
 
 @pytest.fixture
-def token(test_user):
-    return create_access_token({"user_id": test_user["id"]})
+def token(test_employee):
+    return create_access_token({"employee_id": test_employee["id"]})
 
 
 @pytest.fixture

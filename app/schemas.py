@@ -1,18 +1,19 @@
 from pydantic import BaseModel, EmailStr
 
 
-class User(BaseModel):
+class Employee(BaseModel):
     id: int | None
     first_name: str
     last_name: str
     nickname: str | None
     email: EmailStr
+    is_super_admin: bool
 
     class Config:
         orm_mode = True
 
 
-class UserCreate(BaseModel):
+class EmployeeCreate(BaseModel):
     first_name: str
     last_name: str
     nickname: str | None
@@ -23,7 +24,7 @@ class UserCreate(BaseModel):
         orm_mode = True
 
 
-class UserLogin(BaseModel):
+class EmployeeLogin(BaseModel):
     email: EmailStr
     password: str
 
