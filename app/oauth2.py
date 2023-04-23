@@ -31,7 +31,7 @@ def create_access_token(data: dict):
 def verify_access_token(token: str, credentials_exception):
     try:
         payload = jwt.decode(token, key=SECRET_KEY, algorithms=[ALGORITHM])
-        id: str = payload.get("user_id")
+        id: str = payload.get("employee_id")
         if not id:
             raise credentials_exception
         token_data = schemas.TokenData(id=id)
@@ -41,7 +41,7 @@ def verify_access_token(token: str, credentials_exception):
     return token_data
 
 
-# def get_current_user(token: str = Depends(oauth2_scheme)):
+# def get_current_employee(token: str = Depends(oauth2_scheme)):
 #     credentials_exception = HTTPException(
 #         status_code=status.HTTP_401_UNAUTHORIZED,
 #         detail="Could not validate credentials",
@@ -51,7 +51,7 @@ def verify_access_token(token: str, credentials_exception):
 #     return verify_access_token(token, credentials_exception)
 
 
-def get_current_user_id(
+def get_current_employee_id(
     token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)
 ):
     credentials_exception = HTTPException(
@@ -62,5 +62,7 @@ def get_current_user_id(
 
     token = verify_access_token(token, credentials_exception)
 
-    user_id = db.query(models.User).filter(models.User.id == token.id).first().id
-    return user_id
+    employee_id = (
+        db.query(models.Employee).filter(models.Employee.id == token.id).first().id
+    )
+    return employee_id
