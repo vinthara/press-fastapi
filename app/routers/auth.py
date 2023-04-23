@@ -12,8 +12,8 @@ def login(
     db: Session = Depends(database.get_db),
 ):
     user = (
-        db.query(models.User)
-        .filter(models.User.email == user_credentials.username)
+        db.query(models.Employee)
+        .filter(models.Employee.email == user_credentials.username)
         .first()
     )
     if not user:
