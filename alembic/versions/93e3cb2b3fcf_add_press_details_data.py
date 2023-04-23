@@ -48,15 +48,8 @@ def upgrade() -> None:
             "zip_code": 75010,
         },
     ]
-    press_table = table(
-        "PRESS",
-        sa.Column("id", sa.String(), nullable=True),
-        sa.Column("name", sa.String(), nullable=False),
-        sa.Column("address", sa.String(), nullable=False),
-        sa.Column("city", sa.String(), nullable=False),
-        sa.Column("zip_code", sa.Integer(), nullable=False),
-    )
-    op.bulk_insert(press_table, rows)
+    my_table = sa.Table("PRESS", sa.MetaData(), autoload_with=op.get_bind())
+    op.bulk_insert(my_table, rows)
 
 
 def downgrade() -> None:
