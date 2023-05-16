@@ -1,4 +1,45 @@
+# 0) Tree overview
 
+```bash
+tree -L 2 -I __pycache__ -I venv/
+```
+
+```bash
+.
+├── alembic
+│   ├── env.py
+│   ├── migration
+│   ├── README
+│   ├── script.py.mako
+│   └── versions
+│       ├── 210bb53de308_add_is_active.py
+│       ├── 83ad6d6f77c4_create_user_table.py
+│       ├── 87acc7a1e86f_create_employee_week_calendar_table.py
+│       ├── 93e3cb2b3fcf_add_press_details_data.py
+│       └── ea6b75090bef_add_employee_press_employee_role.py
+├── alembic.ini
+├── app
+│   ├── config.py
+│   ├── database.py
+│   ├── __init__.py
+│   ├── main.py
+│   ├── models.py
+│   ├── oauth2.py
+│   ├── routers
+│   │   ├── auth.py
+│   │   └── employee.py
+│   ├── schemas.py
+│   ├── tests
+│   │   ├── conftest.py
+│   │   ├── create_employee_test.py
+│   │   └── __init__.py
+│   └── utils.py
+├── press.db
+├── press.service
+├── press-test.db
+├── README.md
+└── requirements.txt
+```
 
 
 # 1) Getting started
